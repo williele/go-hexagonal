@@ -50,18 +50,22 @@ func registerTranslation() {
 	}
 
 	// sign
-	fallback := Uni.GetFallback()
-	for _, t := range translations {
-		if t.transFunc != nil {
-			if err := Validate.RegisterTranslation(t.tag, fallback, registerFunc, t.transFunc); err != nil {
-				log.Fatal(errors.Wrap(err, "register validate translation"))
-			}
-		} else {
-			if err := Validate.RegisterTranslation(t.tag, fallback, registerFunc, translateFunc); err != nil {
-				log.Fatal(errors.Wrap(err, "register validate translation"))
+	en, _ := Uni.GetTranslator("en")
+	vi, _ := Uni.GetTranslator("vi")
+	for _, lang := range []ut.Translator{en, vi} {
+		for _, t := range translations {
+			if t.transFunc != nil {
+				if err := Validate.RegisterTranslation(t.tag, lang, registerFunc, t.transFunc); err != nil {
+					log.Fatal(errors.Wrap(err, "register validate translation"))
+				}
+			} else {
+				if err := Validate.RegisterTranslation(t.tag, lang, registerFunc, translateFunc); err != nil {
+					log.Fatal(errors.Wrap(err, "register validate translation"))
+				}
 			}
 		}
 	}
+
 }
 
 func registerFunc(ut ut.Translator) error {

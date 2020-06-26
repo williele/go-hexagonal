@@ -58,7 +58,7 @@ func (e *ErrInputInvalid) Error() string {
 func (e *ErrInputInvalid) Translate(trans ut.Translator) map[string]interface{} {
 	result := make(map[string]interface{})
 	for field, key := range e.Details {
-		result[field], _ = trans.T(key)
+		result[field], _ = trans.T(key, field)
 	}
 
 	return result

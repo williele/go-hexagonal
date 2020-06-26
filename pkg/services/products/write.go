@@ -25,7 +25,7 @@ func (p *service) Create(product *Product, input *ProductCreateInput) error {
 		if err != nil {
 			return err
 		}
-		return NewErrInputInvalid("create product", map[string]string{"title": "validate-title-duplicate"})
+		return NewErrInputInvalid("create product", map[string]string{"title": "validate-duplicate"})
 	}
 	// description
 	product.Description = strings.Trim(input.Description, " ")
@@ -57,7 +57,7 @@ func (p *service) Update(product *Product, input *ProductUpdateInput) error {
 			if err != nil {
 				return err
 			}
-			return NewErrInputInvalid("update product", map[string]string{"title": "validate-title-duplicate"})
+			return NewErrInputInvalid("update product", map[string]string{"title": "validate-duplicate"})
 		}
 	}
 	// description

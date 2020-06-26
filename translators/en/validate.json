@@ -11,7 +11,7 @@
   },
   {
     "locale": "en",
-    "key": "validate-title-duplicate",
-    "trans": "title is duplicate"
+    "key": "validate-duplicate",
+    "trans": "{0} is duplicate"
   }
 ]

@@ -1,0 +1,17 @@
+[
+  {
+    "locale": "vi",
+    "key": "validate-required",
+    "trans": "{0} không được bỏ trống"
+  },
+  {
+    "locale": "vi",
+    "key": "validate-price",
+    "trans": "{0} không được âm hoặc bằng 0"
+  },
+  {
+    "locale": "vi",
+    "key": "validate-duplicate",
+    "trans": "{0} bị trùng"
+  }
+]

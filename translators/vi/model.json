@@ -1,0 +1,22 @@
+[
+  {
+    "locale": "vi",
+    "key": "title",
+    "trans": "tiêu đề"
+  },
+  {
+    "locale": "vi",
+    "key": "slug",
+    "trans": "tên slug"
+  },
+  {
+    "locale": "vi",
+    "key": "description",
+    "trans": "ghi chú"
+  },
+  {
+    "locale": "vi",
+    "key": "price",
+    "trans": "giá"
+  }
+]
