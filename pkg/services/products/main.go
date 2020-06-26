@@ -1,5 +1,7 @@
 package products
 
+import "demo/pkg/services"
+
 // database repository
 type Repository interface {
 	GetAll(*[]Product) error
@@ -18,11 +20,15 @@ type Service interface {
 	GetAll(*[]Product) error
 	GetByID(*Product, int64) error
 	GetBySlug(*Product, string) error
+
+	Create(*Product, *ProductCreateInput) error
+	Update(*Product, *ProductUpdateInput) error
 }
 
 // service implemnet
 type service struct {
-	repo Repository
+	repo      Repository
+	validator services.Validator
 }
 
 func NewService(repo Repository) Service {

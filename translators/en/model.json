@@ -1,0 +1,22 @@
+[
+  {
+    "locale": "en",
+    "key": "title",
+    "trans": "title"
+  },
+  {
+    "locale": "en",
+    "key": "slug",
+    "trans": "slug name"
+  },
+  {
+    "locale": "en",
+    "key": "description",
+    "trans": "description"
+  },
+  {
+    "locale": "en",
+    "key": "price",
+    "trans": "price"
+  }
+]

@@ -5,6 +5,10 @@ go 1.14
 require (
 	github.com/go-pg/migrations/v8 v8.0.0-alpha.0
 	github.com/go-pg/pg/v10 v10.0.0-beta.2
+	github.com/go-playground/locales v0.13.0
+	github.com/go-playground/universal-translator v0.17.0
+	github.com/go-playground/validator/v10 v10.3.0
+	github.com/gosimple/slug v1.9.0
 	github.com/onsi/ginkgo v1.13.0 // indirect
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/pflag v1.0.5 // indirect
