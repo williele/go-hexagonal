@@ -7,6 +7,7 @@ func init() {
 	CREATE TABLE products (
 		id serial NOT NULL,
 		title text NOT NULL UNIQUE,
+		slug text NOT NULL UNIQUE,
 		price float NOT NULL,
 		description text,
 		published bool DEFAULT false,

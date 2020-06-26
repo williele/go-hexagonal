@@ -5,7 +5,8 @@ type Repository interface {
 	GetAll(*[]Product) error
 	GetByID(*Product, int64) error
 	GetBySlug(*Product, string) error
-	CheckTitleExists(string) (bool, error)
+
+	CheckSlugExists(string) (bool, error)
 
 	Create(*Product) error
 	Update(*Product) error
