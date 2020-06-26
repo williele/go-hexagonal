@@ -9,7 +9,9 @@ func init() {
 		title text NOT NULL UNIQUE,
 		price float NOT NULL,
 		description text,
-		published bool DEFAULT false
+		published bool DEFAULT false,
+		created_at timestamp with time zone DEFAULT current_timestamp,
+		updated_at timestamp with time zone DEFAULT current_timestamp
 	);
 	`
 
