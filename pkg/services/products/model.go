@@ -15,11 +15,11 @@ type Product struct {
 type ProductCreateInput struct {
 	Title       string  `json:"title" validate:"required"`
 	Description string  `json:"description"`
-	Price       float64 `json:"price" validate:"min=0"`
+	Price       float64 `json:"price" validate:"price"`
 }
 
 type ProductUpdateInput struct {
 	Title       string   `json:"title"`
 	Description string   `json:"description"`
-	Price       *float64 `json:"price" validate:"omitempty,min=0"`
+	Price       *float64 `json:"price" validate:"omitempty,price"`
 }

@@ -47,7 +47,7 @@ func (h *httpRest) Serve() {
 	// start
 	log.Println("Listen on", h.addr)
 	go func() {
-		if err := srv.ListenAndServe(); err != nil {
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatal(errors.Wrap(err, "listen and serve"))
 		}
 	}()

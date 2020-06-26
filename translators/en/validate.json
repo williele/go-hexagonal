@@ -8,5 +8,10 @@
     "locale": "en",
     "key": "validate-price",
     "trans": "{0} cannot be 0 or negative"
+  },
+  {
+    "locale": "en",
+    "key": "validate-title-duplicate",
+    "trans": "title is duplicate"
   }
 ]

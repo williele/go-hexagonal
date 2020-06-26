@@ -2,7 +2,10 @@ package repository
 
 import (
 	"demo/pkg/database/pg"
+	"demo/pkg/services"
 	. "demo/pkg/services/products"
+
+	p "github.com/go-pg/pg/v10"
 )
 
 type ProductRepository struct {
@@ -19,11 +22,27 @@ func (r *ProductRepository) GetAll(products *[]Product) error {
 }
 
 func (r *ProductRepository) GetByID(product *Product, id int64) error {
-	return r.conn.DB.Model(product).Where("id = ?", id).Select()
+	if err := r.conn.DB.Model(product).Where("id = ?", id).Select(); err != nil {
+		if err == p.ErrNoRows {
+			return services.NewErrNotFound("product")
+		} else {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func (r *ProductRepository) GetBySlug(product *Product, slug string) error {
-	return r.conn.DB.Model(product).Where("slug = ?", slug).Select()
+	if err := r.conn.DB.Model(product).Where("slug = ?", slug).Select(); err != nil {
+		if err == p.ErrNoRows {
+			return services.NewErrNotFound("product")
+		} else {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func (r *ProductRepository) CheckSlugExists(slug string) (bool, error) {
