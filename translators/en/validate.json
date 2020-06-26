@@ -1,12 +1,12 @@
 [
   {
     "locale": "en",
-    "key": "required",
+    "key": "validate-required",
     "trans": "{0} is required"
   },
   {
     "locale": "en",
-    "key": "price",
+    "key": "validate-price",
     "trans": "{0} cannot be 0 or negative"
   }
 ]

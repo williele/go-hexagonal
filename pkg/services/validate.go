@@ -7,6 +7,7 @@ import (
 
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
+	"github.com/pkg/errors"
 )
 
 var Validate *validator.Validate
@@ -26,6 +27,7 @@ func init() {
 	})
 
 	// register translations
+	registerValidator()
 	registerTranslation()
 }
 
@@ -52,11 +54,11 @@ func registerTranslation() {
 	for _, t := range translations {
 		if t.transFunc != nil {
 			if err := Validate.RegisterTranslation(t.tag, fallback, registerFunc, t.transFunc); err != nil {
-				log.Fatal(err)
+				log.Fatal(errors.Wrap(err, "register validate translation"))
 			}
 		} else {
 			if err := Validate.RegisterTranslation(t.tag, fallback, registerFunc, translateFunc); err != nil {
-				log.Fatal(err)
+				log.Fatal(errors.Wrap(err, "register validate translation"))
 			}
 		}
 	}
@@ -72,7 +74,7 @@ func translateFunc(ut ut.Translator, fe validator.FieldError) string {
 		field = fe.Field()
 	}
 
-	t, err := ut.T(fe.Tag(), field)
+	t, err := ut.T("validate-"+fe.Tag(), field)
 	if err != nil {
 		return fe.(error).Error()
 	}
