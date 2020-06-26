@@ -1,7 +1,7 @@
 package products
 
 import (
-	"demo/pkg/services"
+	. "demo/pkg/services"
 	"strings"
 	"time"
 
@@ -11,8 +11,8 @@ import (
 // create new product
 func (p *service) Create(product *Product, input *ProductCreateInput) error {
 	// validate input
-	if err := p.validator.Validate.Struct(input); err != nil {
-		return services.ErrInputInvalid
+	if err := Validate.Struct(input); err != nil {
+		return ErrInputInvalid
 	}
 
 	// title
@@ -24,7 +24,7 @@ func (p *service) Create(product *Product, input *ProductCreateInput) error {
 		if err != nil {
 			return err
 		}
-		return services.ErrInputInvalid
+		return ErrInputInvalid
 	}
 
 	// description
@@ -44,8 +44,8 @@ func (p *service) Create(product *Product, input *ProductCreateInput) error {
 // update product
 func (p *service) Update(product *Product, input *ProductUpdateInput) error {
 	// validate input
-	if err := p.validator.Validate.Struct(input); err != nil {
-		return services.ErrInputInvalid
+	if err := Validate.Struct(input); err != nil {
+		return ErrInputInvalid
 	}
 
 	// title

@@ -1,7 +1,7 @@
 package services
 
 import (
-	"demo/pkg/translation"
+	"log"
 	"reflect"
 	"strings"
 
@@ -9,15 +9,14 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-type Validator struct {
-	Validate *validator.Validate
-}
+var Validate *validator.Validate
 
-func NewValidator(translator *translation.Translator) *Validator {
-	validate := validator.New()
+// initialize validate
+func init() {
+	Validate = validator.New()
 
 	// registe tag name as json field
-	validate.RegisterTagNameFunc(func(r reflect.StructField) string {
+	Validate.RegisterTagNameFunc(func(r reflect.StructField) string {
 		name := strings.SplitN(r.Tag.Get("json"), ",", 2)[0]
 		if name == "-" {
 			return ""
@@ -27,36 +26,55 @@ func NewValidator(translator *translation.Translator) *Validator {
 	})
 
 	// register translations
-	registerTranslation(validate, translator.Uni)
-
-	return &Validator{
-		Validate: validate,
-	}
+	registerTranslation()
 }
 
-func registerTranslation(validate *validator.Validate, uni *ut.UniversalTranslator) error {
+// registe custom validators
+func registerValidator() {
+	Validate.RegisterValidation("price", func(fl validator.FieldLevel) bool {
+		return fl.Field().Float() > 0
+	})
+}
+
+// registe validator translation
+func registerTranslation() {
 	translations := []struct {
 		tag       string
 		transFunc validator.TranslationFunc
 	}{
 		// requried
-		{
-			tag: "required",
-			transFunc: func(ut ut.Translator, fe validator.FieldError) string {
-				message, _ := ut.T(fe.Tag(), fe.Field())
-				return message
-			},
-		},
+		{tag: "required"},
+		{tag: "price"},
 	}
 
-	fallback := uni.GetFallback()
+	// sign
+	fallback := Uni.GetFallback()
 	for _, t := range translations {
-		if err := validate.RegisterTranslation(t.tag, fallback, func(ut.Translator) error {
-			return nil
-		}, t.transFunc); err != nil {
-			return err
+		if t.transFunc != nil {
+			if err := Validate.RegisterTranslation(t.tag, fallback, registerFunc, t.transFunc); err != nil {
+				log.Fatal(err)
+			}
+		} else {
+			if err := Validate.RegisterTranslation(t.tag, fallback, registerFunc, translateFunc); err != nil {
+				log.Fatal(err)
+			}
 		}
 	}
+}
 
+func registerFunc(ut ut.Translator) error {
 	return nil
+}
+
+func translateFunc(ut ut.Translator, fe validator.FieldError) string {
+	field, err := ut.T(fe.Field())
+	if err != nil {
+		field = fe.Field()
+	}
+
+	t, err := ut.T(fe.Tag(), field)
+	if err != nil {
+		return fe.(error).Error()
+	}
+	return t
 }

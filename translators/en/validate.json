@@ -3,5 +3,10 @@
     "locale": "en",
     "key": "required",
     "trans": "{0} is required"
+  },
+  {
+    "locale": "en",
+    "key": "price",
+    "trans": "{0} cannot be 0 or negative"
   }
 ]
