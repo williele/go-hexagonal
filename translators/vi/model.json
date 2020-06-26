@@ -18,5 +18,10 @@
     "locale": "vi",
     "key": "price",
     "trans": "giá"
+  },
+  {
+    "locale": "vi",
+    "key": "name",
+    "trans": "tên"
   }
 ]

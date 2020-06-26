@@ -18,5 +18,10 @@
     "locale": "en",
     "key": "price",
     "trans": "price"
+  },
+  {
+    "locale": "en",
+    "key": "name",
+    "trans": "name"
   }
 ]

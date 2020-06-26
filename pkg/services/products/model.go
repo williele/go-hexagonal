@@ -1,7 +1,7 @@
 package products
 
 import (
-	categories "demo/pkg/services/category"
+	categories "demo/pkg/services/categories"
 	"time"
 )
 

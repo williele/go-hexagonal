@@ -4,6 +4,7 @@ import (
 	"demo/pkg/database/pg"
 	"demo/pkg/database/pg/repository"
 	"demo/pkg/server/rest"
+	"demo/pkg/services/categories"
 	"demo/pkg/services/products"
 	"log"
 
@@ -22,7 +23,10 @@ var serveCmd = &cobra.Command{
 		productRepo := repository.NewProductRepository(conn)
 		productService := products.NewService(productRepo)
 
-		server := rest.NewHTTPRest(":3000", productService)
+		categoryRepo := repository.NewCategoryRepository(conn)
+		categoryService := categories.NewService(categoryRepo)
+
+		server := rest.NewHTTPRest(":3000", productService, categoryService)
 		server.Serve()
 	},
 }

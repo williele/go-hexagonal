@@ -27,6 +27,11 @@ func (p *service) Create(category *Category, input *CategoryCreateInput) error {
 		return NewErrInputInvalid("create category", map[string]string{"name": "validate-duplicate"})
 	}
 
+	// create
+	if err := p.repo.Create(category); err != nil {
+		return err
+	}
+
 	return nil
 }
 

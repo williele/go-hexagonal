@@ -7,9 +7,9 @@ type Category struct {
 }
 
 type CategoryCreateInput struct {
-	Name string `json:"title" validate:"required"`
+	Name string `json:"name" validate:"required"`
 }
 
 type CategoryUpdateInput struct {
-	Name string `json:"title"`
+	Name string `json:"name"`
 }

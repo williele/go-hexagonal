@@ -2,6 +2,7 @@ package rest
 
 import (
 	"context"
+	"demo/pkg/services/categories"
 	"demo/pkg/services/products"
 	"log"
 	"net/http"
@@ -18,14 +19,16 @@ type HTTPRest interface {
 }
 
 type httpRest struct {
-	addr           string
-	productService products.Service
+	addr            string
+	productService  products.Service
+	categoryService categories.Service
 }
 
-func NewHTTPRest(addr string, productService products.Service) HTTPRest {
+func NewHTTPRest(addr string, productService products.Service, categoryService categories.Service) HTTPRest {
 	return &httpRest{
-		addr:           addr,
-		productService: productService,
+		addr:            addr,
+		productService:  productService,
+		categoryService: categoryService,
 	}
 }
 
@@ -43,6 +46,9 @@ func (h *httpRest) Serve() {
 	// endpoints
 	productsEndpoint := newProductsEndpoint(h.productService)
 	chi.Mount("/api/products", productsEndpoint.routers())
+
+	categoriesEndpoint := newCategoriesEndpoint(h.categoryService)
+	chi.Mount("/api/categories", categoriesEndpoint.routers())
 
 	// start
 	log.Println("Listen on", h.addr)
