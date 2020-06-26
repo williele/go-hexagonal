@@ -5,7 +5,7 @@ import "github.com/go-pg/migrations/v8"
 func init() {
 	const upQuery = `
 	CREATE TABLE products (
-		id serial NOT NULL,
+		id serial NOT NULL PRIMARY KEY,
 		title text NOT NULL UNIQUE,
 		slug text NOT NULL UNIQUE,
 		price float NOT NULL,

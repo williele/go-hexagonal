@@ -3,6 +3,7 @@ package rest
 import (
 	"demo/pkg/services"
 	"encoding/json"
+	"log"
 	"net/http"
 
 	ut "github.com/go-playground/universal-translator"
@@ -33,8 +34,8 @@ func acceptLang(r *http.Request) ut.Translator {
 
 // response result
 func response(status int, w http.ResponseWriter, r *http.Request, data interface{}) {
-	w.WriteHeader(status)
 	w.Header().Add("Content-Type", "application/json")
+	w.WriteHeader(status)
 	json.NewEncoder(w).Encode(data)
 }
 
@@ -61,8 +62,12 @@ func responseError(status int, w http.ResponseWriter, r *http.Request, err error
 		details = e.Translate(trans)
 	}
 
-	w.WriteHeader(code)
 	w.Header().Add("Content-Type", "application/json")
+	w.WriteHeader(code)
+
+	if code >= 500 {
+		log.Println(err)
+	}
 
 	json.NewEncoder(w).Encode(&errorStruct{
 		Code:    code,

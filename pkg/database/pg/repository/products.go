@@ -18,11 +18,11 @@ func NewProductRepository(conn *pg.Connection) *ProductRepository {
 
 // implement
 func (r *ProductRepository) GetAll(products *[]Product) error {
-	return r.conn.DB.Model(products).Select()
+	return r.conn.DB.Model(products).Relation("Categories").Select()
 }
 
 func (r *ProductRepository) GetByID(product *Product, id int64) error {
-	if err := r.conn.DB.Model(product).Where("id = ?", id).Select(); err != nil {
+	if err := r.conn.DB.Model(product).Relation("Categories").Where("id = ?", id).Select(); err != nil {
 		if err == p.ErrNoRows {
 			return services.NewErrNotFound("product")
 		} else {
@@ -34,7 +34,7 @@ func (r *ProductRepository) GetByID(product *Product, id int64) error {
 }
 
 func (r *ProductRepository) GetBySlug(product *Product, slug string) error {
-	if err := r.conn.DB.Model(product).Where("slug = ?", slug).Select(); err != nil {
+	if err := r.conn.DB.Model(product).Relation("Categories").Where("slug = ?", slug).Select(); err != nil {
 		if err == p.ErrNoRows {
 			return services.NewErrNotFound("product")
 		} else {

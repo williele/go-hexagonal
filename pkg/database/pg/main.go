@@ -1,7 +1,10 @@
 package pg
 
 import (
+	"demo/pkg/services/products"
+
 	"github.com/go-pg/pg/v10"
+	"github.com/go-pg/pg/v10/orm"
 )
 
 type Connection struct {
@@ -28,4 +31,8 @@ func NewTestConnection() (*Connection, error) {
 	})
 
 	return &Connection{DB: db}, nil
+}
+
+func init() {
+	orm.RegisterTable((*products.ProductsToCategories)(nil))
 }
